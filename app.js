@@ -408,6 +408,94 @@ const dialogueLessons = {
     options: ["Go straight and turn left.", "Turn right at the bank.", "Take a taxi home."],
     answer: "Go straight and turn left.",
   },
+  classroom: {
+    name: "Trong lớp học",
+    lines: [
+      { speaker: "Teacher", text: "Please open your books to page ten.", meaning: "Hãy mở sách trang 10." },
+      { speaker: "Student", text: "Can you repeat that, please?", meaning: "Thầy/cô có thể nhắc lại không ạ?" },
+      { speaker: "Teacher", text: "Of course. Page ten, exercise one.", meaning: "Tất nhiên. Trang 10, bài tập 1." },
+    ],
+    question: "Giáo viên yêu cầu mở sách trang nào?",
+    options: ["Page ten.", "Page two.", "Page twenty."],
+    answer: "Page ten.",
+  },
+  hotel: {
+    name: "Khách sạn",
+    lines: [
+      { speaker: "Guest", text: "Hello. I have a reservation for tonight.", meaning: "Xin chào. Tôi có đặt phòng cho tối nay." },
+      { speaker: "Receptionist", text: "May I have your name, please?", meaning: "Cho tôi xin tên của bạn được không?" },
+      { speaker: "Guest", text: "My name is Minh Tran.", meaning: "Tên tôi là Minh Trần." },
+    ],
+    question: "Nhân viên lễ tân hỏi thông tin gì?",
+    options: ["The guest's name.", "The guest's phone.", "The room color."],
+    answer: "The guest's name.",
+  },
+  directions: {
+    name: "Hỏi đường",
+    lines: [
+      { speaker: "Visitor", text: "Excuse me. How can I get to the museum?", meaning: "Xin lỗi. Tôi đến bảo tàng như thế nào?" },
+      { speaker: "Local", text: "Walk two blocks and turn right.", meaning: "Đi bộ hai dãy nhà rồi rẽ phải." },
+      { speaker: "Visitor", text: "Is it far from here?", meaning: "Nó có xa đây không?" },
+    ],
+    question: "Người địa phương bảo rẽ hướng nào?",
+    options: ["Turn right.", "Turn left.", "Go back."],
+    answer: "Turn right.",
+  },
+  doctor: {
+    name: "Đi khám bệnh",
+    lines: [
+      { speaker: "Doctor", text: "What seems to be the problem?", meaning: "Bạn gặp vấn đề gì?" },
+      { speaker: "Patient", text: "I have a headache and a sore throat.", meaning: "Tôi bị đau đầu và đau họng." },
+      { speaker: "Doctor", text: "You should drink water and rest.", meaning: "Bạn nên uống nước và nghỉ ngơi." },
+    ],
+    question: "Bệnh nhân bị gì?",
+    options: ["A headache and a sore throat.", "A broken arm.", "A stomachache only."],
+    answer: "A headache and a sore throat.",
+  },
+  airport: {
+    name: "Sân bay",
+    lines: [
+      { speaker: "Staff", text: "May I see your passport and ticket?", meaning: "Tôi có thể xem hộ chiếu và vé của bạn không?" },
+      { speaker: "Traveler", text: "Sure. Here they are.", meaning: "Vâng. Đây ạ." },
+      { speaker: "Staff", text: "Your gate is number twelve.", meaning: "Cổng của bạn là số 12." },
+    ],
+    question: "Cổng lên máy bay là số mấy?",
+    options: ["Number twelve.", "Number two.", "Number twenty."],
+    answer: "Number twelve.",
+  },
+  "phone-call": {
+    name: "Gọi điện",
+    lines: [
+      { speaker: "Caller", text: "Hello. May I speak to Anna?", meaning: "Xin chào. Tôi có thể nói chuyện với Anna không?" },
+      { speaker: "Receiver", text: "She is not here right now.", meaning: "Hiện tại cô ấy không có ở đây." },
+      { speaker: "Caller", text: "Can I leave a message?", meaning: "Tôi có thể để lại lời nhắn không?" },
+    ],
+    question: "Người gọi muốn làm gì?",
+    options: ["Leave a message.", "Buy a phone.", "Book a hotel."],
+    answer: "Leave a message.",
+  },
+  "daily-routine": {
+    name: "Sinh hoạt hằng ngày",
+    lines: [
+      { speaker: "Nam", text: "What time do you wake up?", meaning: "Bạn thức dậy lúc mấy giờ?" },
+      { speaker: "Linh", text: "I wake up at six thirty.", meaning: "Tôi thức dậy lúc 6 giờ 30." },
+      { speaker: "Nam", text: "Do you exercise in the morning?", meaning: "Bạn có tập thể dục buổi sáng không?" },
+    ],
+    question: "Linh thức dậy lúc mấy giờ?",
+    options: ["At six thirty.", "At seven thirty.", "At six fifteen."],
+    answer: "At six thirty.",
+  },
+  "job-interview": {
+    name: "Phỏng vấn việc làm",
+    lines: [
+      { speaker: "Interviewer", text: "Can you tell me about yourself?", meaning: "Bạn có thể giới thiệu về bản thân không?" },
+      { speaker: "Applicant", text: "I am hardworking and I like learning new skills.", meaning: "Tôi chăm chỉ và thích học kỹ năng mới." },
+      { speaker: "Interviewer", text: "Why do you want this job?", meaning: "Tại sao bạn muốn công việc này?" },
+    ],
+    question: "Ứng viên nói mình là người như thế nào?",
+    options: ["Hardworking.", "Late every day.", "Not interested."],
+    answer: "Hardworking.",
+  },
 };
 
 const otherGrammarLessons = {
@@ -1264,7 +1352,7 @@ function speakText(text, cancelBeforeSpeak = true) {
   utterance.lang = "en-US";
   utterance.voice = getPreferredEnglishVoice();
   utterance.rate = Number(elements.speechSpeed?.value || 0.86);
-  utterance.pitch = 1;
+  utterance.pitch = 0.72;
   speechSynthesis.speak(utterance);
 }
 
@@ -1286,7 +1374,9 @@ function getPreferredEnglishVoice() {
   }
 
   return (
-    englishVoices.find((voice) => /natural|online|neural|aria|jenny|guy/i.test(voice.name)) ||
+    englishVoices.find((voice) => /guy|david|mark|daniel|george|male|roger|fred|alex/i.test(voice.name)) ||
+    englishVoices.find((voice) => /natural|online|neural/i.test(voice.name) && /guy|david|mark|daniel|george|male/i.test(voice.name)) ||
+    englishVoices.find((voice) => /natural|online|neural|aria|jenny/i.test(voice.name)) ||
     englishVoices.find((voice) => voice.lang === "en-US") ||
     englishVoices.find((voice) => voice.lang === "en-GB") ||
     englishVoices[0] ||
