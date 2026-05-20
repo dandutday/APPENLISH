@@ -402,7 +402,7 @@ h1 {
 
 .listening-header {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(180px, 220px) minmax(180px, 220px);
+  grid-template-columns: minmax(0, 1fr) minmax(160px, 200px) minmax(220px, 280px) minmax(150px, 180px);
   align-items: end;
   gap: 18px;
   margin-bottom: 18px;

@@ -669,6 +669,7 @@ const elements = {
   dialogueName: document.querySelector("#dialogue-name"),
   dialogueLines: document.querySelector("#dialogue-lines"),
   playDialogueButton: document.querySelector("#play-dialogue-button"),
+  speechVoice: document.querySelector("#speech-voice"),
   speechSpeed: document.querySelector("#speech-speed"),
   listeningQuestion: document.querySelector("#listening-question"),
   listeningOptions: document.querySelector("#listening-options"),
@@ -1271,11 +1272,17 @@ function loadEnglishVoices() {
   englishVoices = speechSynthesis
     .getVoices()
     .filter((voice) => voice.lang?.toLowerCase().startsWith("en"));
+  renderVoiceOptions();
 }
 
 function getPreferredEnglishVoice() {
   if (!englishVoices.length) {
     loadEnglishVoices();
+  }
+
+  const selectedVoiceName = elements.speechVoice?.value;
+  if (selectedVoiceName && selectedVoiceName !== "auto") {
+    return englishVoices.find((voice) => voice.name === selectedVoiceName) || null;
   }
 
   return (
@@ -1285,6 +1292,29 @@ function getPreferredEnglishVoice() {
     englishVoices[0] ||
     null
   );
+}
+
+function renderVoiceOptions() {
+  if (!elements.speechVoice) return;
+
+  const currentValue = elements.speechVoice.value;
+  elements.speechVoice.innerHTML = "";
+
+  const autoOption = document.createElement("option");
+  autoOption.value = "auto";
+  autoOption.textContent = "Tự chọn giọng tốt nhất";
+  elements.speechVoice.appendChild(autoOption);
+
+  englishVoices.forEach((voice) => {
+    const option = document.createElement("option");
+    option.value = voice.name;
+    option.textContent = `${voice.name} (${voice.lang})`;
+    elements.speechVoice.appendChild(option);
+  });
+
+  if ([...elements.speechVoice.options].some((option) => option.value === currentValue)) {
+    elements.speechVoice.value = currentValue;
+  }
 }
 
 function shuffle(items) {
