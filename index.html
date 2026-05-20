@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Easy English Starter</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <p class="eyebrow">Học tiếng Anh cho người mới</p>
+          <h1 id="page-title">Tra từ, học ngữ pháp, luyện câu ví dụ trong 1 phút</h1>
+          <p class="intro">
+            Nhập một từ tiếng Anh bất kỳ. Trang sẽ lấy nghĩa, phiên âm, âm thanh,
+            bản dịch tiếng Việt, từ liên quan và có thêm bài ngữ pháp cơ bản.
+          </p>
+        </div>
+        <form class="search-panel" id="lookup-form">
+          <label for="word-input">Từ cần học</label>
+          <div class="search-row">
+            <input
+              id="word-input"
+              name="word"
+              autocomplete="off"
+              spellcheck="false"
+              value="hello"
+              placeholder="Ví dụ: hello, book, happy"
+            />
+            <button type="submit">Học từ này</button>
+          </div>
+          <p class="hint">Gợi ý nhanh:
+            <button type="button" class="word-chip" data-word="family">family</button>
+            <button type="button" class="word-chip" data-word="water">water</button>
+            <button type="button" class="word-chip" data-word="learn">learn</button>
+          </p>
+        </form>
+      </section>
+
+      <section class="status" id="status" role="status" aria-live="polite">
+        Sẵn sàng học từ mới.
+      </section>
+
+      <section class="lesson-grid" aria-label="Nội dung bài học">
+        <article class="lesson-card word-card">
+          <div class="card-heading">
+            <p>Từ vựng</p>
+            <button id="audio-button" type="button" disabled>Nghe</button>
+          </div>
+          <h2 id="word-title">hello</h2>
+          <p class="phonetic" id="phonetic">/həˈləʊ/</p>
+          <p class="translation" id="translation">Xin chào</p>
+        </article>
+
+        <article class="lesson-card">
+          <p class="card-kicker">Nghĩa đơn giản</p>
+          <ul class="definition-list" id="definitions"></ul>
+        </article>
+
+        <article class="lesson-card">
+          <p class="card-kicker">Câu ví dụ</p>
+          <div id="examples" class="examples"></div>
+        </article>
+
+        <article class="lesson-card">
+          <p class="card-kicker">Từ liên quan</p>
+          <div id="related-words" class="related-words"></div>
+        </article>
+      </section>
+
+      <section class="practice" aria-labelledby="practice-title">
+        <div>
+          <p class="eyebrow">Luyện tập nhanh</p>
+          <h2 id="practice-title">Từ này có nghĩa gần với câu nào?</h2>
+        </div>
+        <div class="quiz-box">
+          <p id="quiz-question">Chọn nghĩa đúng của từ vừa học.</p>
+          <div id="quiz-options" class="quiz-options"></div>
+          <p id="quiz-feedback" class="quiz-feedback" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <section class="listening-section" aria-labelledby="listening-title">
+        <div class="listening-header">
+          <div>
+            <p class="eyebrow">Luyện nghe hội thoại</p>
+            <h2 id="listening-title">Nghe các câu giao tiếp ngắn theo chủ đề quen thuộc</h2>
+          </div>
+          <label class="topic-select">
+            Chủ đề
+            <select id="dialogue-topic">
+              <option value="greeting">Chào hỏi</option>
+              <option value="restaurant">Nhà hàng</option>
+              <option value="shopping">Mua sắm</option>
+              <option value="travel">Du lịch</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="listening-layout">
+          <article class="dialogue-card">
+            <div class="dialogue-toolbar">
+              <div>
+                <p class="card-kicker">Đoạn hội thoại</p>
+                <h3 id="dialogue-name">Chào hỏi</h3>
+              </div>
+              <button id="play-dialogue-button" type="button">Nghe cả đoạn</button>
+            </div>
+            <div id="dialogue-lines" class="dialogue-lines"></div>
+          </article>
+
+          <article class="listening-quiz">
+            <p class="card-kicker">Kiểm tra nghe</p>
+            <p id="listening-question" class="grammar-question"></p>
+            <div id="listening-options" class="quiz-options"></div>
+            <p id="listening-feedback" class="quiz-feedback" aria-live="polite"></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="grammar-section" aria-labelledby="grammar-title">
+        <div class="grammar-header">
+          <div>
+            <p class="eyebrow">Ngữ pháp cho người mới</p>
+            <h2 id="grammar-title">Học mẫu câu, xem ví dụ, rồi tự kiểm tra câu của bạn</h2>
+          </div>
+          <label class="grammar-select">
+            Chủ điểm
+            <select id="grammar-topic">
+              <option value="present-simple">1. Hiện tại đơn</option>
+              <option value="present-continuous">2. Hiện tại tiếp diễn</option>
+              <option value="past-simple">3. Quá khứ đơn</option>
+              <option value="future-simple">4. Tương lai đơn</option>
+              <option value="present-perfect">5. Hiện tại hoàn thành</option>
+              <option value="past-continuous">6. Quá khứ tiếp diễn</option>
+              <option value="future-continuous">7. Tương lai tiếp diễn</option>
+              <option value="past-perfect">8. Quá khứ hoàn thành</option>
+              <option value="present-perfect-continuous">9. Hiện tại hoàn thành tiếp diễn</option>
+              <option value="past-perfect-continuous">10. Quá khứ hoàn thành tiếp diễn</option>
+              <option value="future-perfect">11. Tương lai hoàn thành</option>
+              <option value="future-perfect-continuous">12. Tương lai hoàn thành tiếp diễn</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="grammar-grid">
+          <article class="grammar-card">
+            <p class="card-kicker">Công thức</p>
+            <h3 id="grammar-name">To be</h3>
+            <p id="grammar-formula" class="formula">S + am/is/are + noun/adjective.</p>
+            <p id="grammar-note" class="grammar-note"></p>
+          </article>
+
+          <article class="grammar-card">
+            <p class="card-kicker">Ví dụ dễ hiểu</p>
+            <div id="grammar-examples" class="grammar-examples"></div>
+          </article>
+
+          <article class="grammar-card grammar-checker">
+            <p class="card-kicker">Kiểm tra câu bằng API</p>
+            <textarea id="grammar-input" rows="4">She are happy.</textarea>
+            <button id="grammar-check-button" type="button">Kiểm tra ngữ pháp</button>
+            <div id="grammar-result" class="grammar-result" aria-live="polite"></div>
+          </article>
+
+          <article class="grammar-card">
+            <p class="card-kicker">Bài tập nhỏ</p>
+            <p id="grammar-question" class="grammar-question"></p>
+            <div id="grammar-options" class="quiz-options"></div>
+            <div class="exercise-actions">
+              <span id="grammar-progress">Câu 1/1</span>
+              <button id="next-grammar-button" type="button">Câu tiếp</button>
+            </div>
+            <p id="grammar-feedback" class="quiz-feedback" aria-live="polite"></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="grammar-section" aria-labelledby="other-grammar-title">
+        <div class="grammar-header">
+          <div>
+            <p class="eyebrow">Ngữ pháp nền tảng</p>
+            <h2 id="other-grammar-title">Học thêm các cấu trúc quan trọng ngoài 12 thì</h2>
+          </div>
+          <label class="grammar-select">
+            Chủ điểm
+            <select id="other-grammar-topic">
+              <option value="articles">Mạo từ: a, an, the</option>
+              <option value="pronouns">Đại từ</option>
+              <option value="prepositions">Giới từ nơi chốn</option>
+              <option value="question-words">Từ để hỏi</option>
+              <option value="comparatives">So sánh hơn / nhất</option>
+              <option value="modals">Động từ khuyết thiếu</option>
+              <option value="passive">Câu bị động</option>
+              <option value="conditionals">Câu điều kiện cơ bản</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="grammar-grid">
+          <article class="grammar-card">
+            <p class="card-kicker">Quy tắc</p>
+            <h3 id="other-grammar-name">Mạo từ</h3>
+            <p id="other-grammar-formula" class="formula"></p>
+            <p id="other-grammar-note" class="grammar-note"></p>
+          </article>
+
+          <article class="grammar-card">
+            <p class="card-kicker">Ví dụ dễ hiểu</p>
+            <div id="other-grammar-examples" class="grammar-examples"></div>
+          </article>
+
+          <article class="grammar-card">
+            <p class="card-kicker">Mẹo nhớ nhanh</p>
+            <p id="other-grammar-tip" class="grammar-note"></p>
+          </article>
+
+          <article class="grammar-card">
+            <p class="card-kicker">Bài tập nhỏ</p>
+            <p id="other-grammar-question" class="grammar-question"></p>
+            <div id="other-grammar-options" class="quiz-options"></div>
+            <div class="exercise-actions">
+              <span id="other-grammar-progress">Câu 1/1</span>
+              <button id="next-other-grammar-button" type="button">Câu tiếp</button>
+            </div>
+            <p id="other-grammar-feedback" class="quiz-feedback" aria-live="polite"></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="random-practice-section" aria-labelledby="random-practice-title">
+        <div class="grammar-header">
+          <div>
+            <p class="eyebrow">Luyện tập ngẫu nhiên</p>
+            <h2 id="random-practice-title">100 câu bài tập nhỏ, xuất hiện không theo thứ tự</h2>
+          </div>
+          <button id="random-exercise-button" class="random-exercise-button" type="button">Câu ngẫu nhiên</button>
+        </div>
+
+        <article class="random-exercise-card">
+          <div class="exercise-actions random-exercise-top">
+            <span id="random-exercise-progress">Ngẫu nhiên 1/100</span>
+            <span id="random-exercise-topic">Mixed grammar</span>
+          </div>
+          <p id="random-exercise-question" class="grammar-question"></p>
+          <div id="random-exercise-options" class="quiz-options"></div>
+          <p id="random-exercise-feedback" class="quiz-feedback" aria-live="polite"></p>
+          <div id="random-exercise-explanation" class="exercise-explanation"></div>
+        </article>
+      </section>
+
+      <footer>
+        API: DictionaryAPI.dev, Datamuse, MyMemory, LanguageTool, Web Speech. Trang có dữ liệu dự phòng để chạy offline khi cần.
+      </footer>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
