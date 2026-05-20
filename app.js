@@ -669,6 +669,7 @@ const elements = {
   dialogueName: document.querySelector("#dialogue-name"),
   dialogueLines: document.querySelector("#dialogue-lines"),
   playDialogueButton: document.querySelector("#play-dialogue-button"),
+  speechSpeed: document.querySelector("#speech-speed"),
   listeningQuestion: document.querySelector("#listening-question"),
   listeningOptions: document.querySelector("#listening-options"),
   listeningFeedback: document.querySelector("#listening-feedback"),
@@ -681,6 +682,7 @@ let activeOtherGrammarTopic = "articles";
 let activeOtherGrammarExerciseIndex = 0;
 let remainingRandomExerciseIndexes = [];
 let randomExerciseSeenCount = 0;
+let englishVoices = [];
 
 elements.form.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -710,6 +712,11 @@ elements.dialogueTopic.addEventListener("change", () => {
 elements.playDialogueButton.addEventListener("click", () => {
   playDialogue(elements.dialogueTopic.value);
 });
+
+if ("speechSynthesis" in window) {
+  speechSynthesis.addEventListener("voiceschanged", loadEnglishVoices);
+  loadEnglishVoices();
+}
 
 elements.grammarTopic.addEventListener("change", () => {
   renderGrammarLesson(elements.grammarTopic.value);
@@ -1254,9 +1261,30 @@ function speakText(text, cancelBeforeSpeak = true) {
 
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = "en-US";
-  utterance.rate = 0.82;
+  utterance.voice = getPreferredEnglishVoice();
+  utterance.rate = Number(elements.speechSpeed?.value || 0.86);
   utterance.pitch = 1;
   speechSynthesis.speak(utterance);
+}
+
+function loadEnglishVoices() {
+  englishVoices = speechSynthesis
+    .getVoices()
+    .filter((voice) => voice.lang?.toLowerCase().startsWith("en"));
+}
+
+function getPreferredEnglishVoice() {
+  if (!englishVoices.length) {
+    loadEnglishVoices();
+  }
+
+  return (
+    englishVoices.find((voice) => /natural|online|neural|aria|jenny|guy/i.test(voice.name)) ||
+    englishVoices.find((voice) => voice.lang === "en-US") ||
+    englishVoices.find((voice) => voice.lang === "en-GB") ||
+    englishVoices[0] ||
+    null
+  );
 }
 
 function shuffle(items) {
